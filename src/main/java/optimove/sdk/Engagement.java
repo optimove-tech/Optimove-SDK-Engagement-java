@@ -13,8 +13,7 @@ import java.nio.channels.Channels;
 
 import java.io.InputStream;
 
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
 
 public class Engagement {
     private final EngagementSettings settings;

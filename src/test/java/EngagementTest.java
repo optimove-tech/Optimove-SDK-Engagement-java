@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.*;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 
 public class EngagementTest {

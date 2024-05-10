@@ -7,17 +7,14 @@ import java.io.IOException;
 import optimove.sdk.Engagement;
 import optimove.sdk.Metadata;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
-
     public static void main(String[] args) {
-        BasicConfigurator.configure();
+        Logger logger = LoggerFactory.getLogger(Main.class);
 
-        Engagement engagement = new Engagement(null, 1, "optigration-internal-dev", "260_2024-03-14 06 40_google-customer-match_22_286384/customers", "260_2024-03-14 06 40_google-customer-match_22_286384/metadata_286384", logger);
+        Engagement engagement = new Engagement(null, 1, "bucket-name", "customers-folder/customers", "metadata-path/metadata_287934", logger);
 
         Metadata metadata = engagement.getMetadata();
         System.out.println(metadata.getNumberOfFiles());
@@ -32,7 +29,7 @@ public class Main {
                     System.out.println(record);
                 }
             } catch (IOException e) {
-                Main.logger.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
             }
         }
 
