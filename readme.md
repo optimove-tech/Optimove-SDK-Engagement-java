@@ -16,8 +16,8 @@ To use this SDK in your project, you'll need to add it as a dependency in your M
 Then, you can import the necessary classes from the SDK into your Java code:
 
 ```java
-
-
+import optimove.sdk.Engagement;
+import optimove.sdk.Metadata;
 ```
 
 ## Example Usage
