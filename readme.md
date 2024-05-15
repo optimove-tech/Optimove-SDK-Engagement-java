@@ -10,14 +10,14 @@ To use this SDK in your project, you'll need to add it as a dependency in your M
 <dependency>
     <groupId>io.github.maryan-opti</groupId>
     <artifactId>Optimove-SDK-Engagement-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 Then, you can import the necessary classes from the SDK into your Java code:
 
 ```java
-
-
+import optimove.sdk.Engagement;
+import optimove.sdk.Metadata;
 ```
 
 ## Example Usage
@@ -28,23 +28,19 @@ package org.example;
 
 import org.apache.avro.file.DataFileStream;
 import org.apache.avro.generic.GenericRecord;
-
 import java.io.IOException;
 
 import optimove.sdk.Engagement;
 import optimove.sdk.Metadata;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
-    private static final Logger logger = LogManager.getLogger(Main.class);
-
     public static void main(String[] args) {
-        BasicConfigurator.configure();
+        Logger logger = LoggerFactory.getLogger(Main.class);
 
-        Engagement engagement = new Engagement(null, 1, "external-bucket", "file-name/customers", "file-path/metadata_286384", logger);
+        Engagement engagement = new Engagement(null, 1, "bucket-name", "customers-folder/customers", "metadata-path/metadata_287934", logger);
 
         Metadata metadata = engagement.getMetadata();
         System.out.println(metadata.getNumberOfFiles());
@@ -59,14 +55,13 @@ public class Main {
                     System.out.println(record);
                 }
             } catch (IOException e) {
-                Main.logger.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
             }
         }
 
         System.out.println("end!");
     }
 }
-
 ```
 
 In this example, we're creating a new `Engagement` object, which represents a customer engagement. We pass in some configuration options, such as the engagement ID and the location of the customer data files.
