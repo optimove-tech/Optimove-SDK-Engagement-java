@@ -1,17 +1,23 @@
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
+import optimove.sdk.engagement.EngagementSettings;
+import org.apache.avro.file.DataFileStream;
+import org.apache.avro.generic.GenericRecord;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import optimove.sdk.Engagement;
-import optimove.sdk.EngagementSettings;
-import optimove.sdk.Metadata;
-import optimove.sdk.StorageSingleton;
+import optimove.sdk.engagement.Engagement;
+import optimove.sdk.engagement.Metadata;
+import optimove.sdk.engagement.StorageSingleton;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.*;
 
 import org.slf4j.Logger;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.channels.Channels;
 
 
 public class EngagementTest {
@@ -104,5 +110,18 @@ public class EngagementTest {
         assertThrows(IllegalArgumentException.class, () -> {
             engagement.getCustomerBatchById(id);
         });
+    }
+
+    @Test
+    public void valid_src_file_name_returns_data_file_stream() {
+        Engagement engagement = new Engagement("decryptionKey", 1, "bucketName", "customersFolderPath", "metadataFilePath", mock(Logger.class));
+        String validSrcFileName = "valid_file.avro";
+        StorageSingleton mockStorage = mock(StorageSingleton.class);
+        ReadChannel mockReadChannel = mock(ReadChannel.class);
+        when(StorageSingleton.getReadChanel("bucketName", validSrcFileName, "decryptionKey")).thenReturn(mockReadChannel);
+        InputStream mockInputStream = new ByteArrayInputStream(new byte[0]);
+        when(Channels.newInputStream(mockReadChannel)).thenReturn(mockInputStream);
+        DataFileStream<GenericRecord> result = engagement.getCustomersFileStream(validSrcFileName);
+        assertNotNull(result);
     }
 }
