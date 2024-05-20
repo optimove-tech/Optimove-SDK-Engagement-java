@@ -26,7 +26,6 @@ Here's an example of how to use the SDK to load and print out customer engagemen
 ```java
 package org.example;
 
-import optimove.sdk.engagement.Metadata;
 import org.apache.avro.file.DataFileStream;
 import org.apache.avro.generic.GenericRecord;
 

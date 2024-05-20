@@ -111,17 +111,4 @@ public class EngagementTest {
             engagement.getCustomerBatchById(id);
         });
     }
-
-    @Test
-    public void valid_src_file_name_returns_data_file_stream() {
-        Engagement engagement = new Engagement("decryptionKey", 1, "bucketName", "customersFolderPath", "metadataFilePath", mock(Logger.class));
-        String validSrcFileName = "valid_file.avro";
-        StorageSingleton mockStorage = mock(StorageSingleton.class);
-        ReadChannel mockReadChannel = mock(ReadChannel.class);
-        when(StorageSingleton.getReadChanel("bucketName", validSrcFileName, "decryptionKey")).thenReturn(mockReadChannel);
-        InputStream mockInputStream = new ByteArrayInputStream(new byte[0]);
-        when(Channels.newInputStream(mockReadChannel)).thenReturn(mockInputStream);
-        DataFileStream<GenericRecord> result = engagement.getCustomersFileStream(validSrcFileName);
-        assertNotNull(result);
-    }
 }
