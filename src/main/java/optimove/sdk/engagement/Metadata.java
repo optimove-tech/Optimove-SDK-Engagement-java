@@ -1,4 +1,4 @@
-package optimove.sdk;
+package optimove.sdk.engagement;
 import java.util.Date;
 
 public class Metadata {

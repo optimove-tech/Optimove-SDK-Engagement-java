@@ -1,4 +1,4 @@
-package optimove.sdk;
+package optimove.sdk.engagement;
 
 public class EngagementSettings {
     private String decryptionKey;

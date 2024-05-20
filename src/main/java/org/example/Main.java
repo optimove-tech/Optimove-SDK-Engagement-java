@@ -4,8 +4,8 @@ import org.apache.avro.file.DataFileStream;
 import org.apache.avro.generic.GenericRecord;
 import java.io.IOException;
 
-import optimove.sdk.Engagement;
-import optimove.sdk.Metadata;
+import optimove.sdk.engagement.Engagement;
+import optimove.sdk.engagement.Metadata;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

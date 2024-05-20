@@ -1,4 +1,4 @@
-package optimove.sdk;
+package optimove.sdk.engagement;
 import com.google.gson.Gson;
 
 public class MetadataService {

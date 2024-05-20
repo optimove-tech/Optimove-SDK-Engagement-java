@@ -1,17 +1,23 @@
 import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
+import optimove.sdk.engagement.EngagementSettings;
+import org.apache.avro.file.DataFileStream;
+import org.apache.avro.generic.GenericRecord;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import optimove.sdk.Engagement;
-import optimove.sdk.EngagementSettings;
-import optimove.sdk.Metadata;
-import optimove.sdk.StorageSingleton;
+import optimove.sdk.engagement.Engagement;
+import optimove.sdk.engagement.Metadata;
+import optimove.sdk.engagement.StorageSingleton;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.mockito.Mockito.*;
 
 import org.slf4j.Logger;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.channels.Channels;
 
 
 public class EngagementTest {
