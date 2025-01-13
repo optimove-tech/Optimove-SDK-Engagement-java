@@ -88,7 +88,7 @@ public class Metadata {
         return NumberOfCustomers;
     }
 
-    public long getNumberOfFiles() {
+    public long getNumberOfBatches() {
         return NumberOfFiles;
     }
 

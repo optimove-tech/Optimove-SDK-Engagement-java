@@ -41,12 +41,12 @@ public class Main {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(Main.class);
 
-        Engagement engagement = new Engagement(null, 1, "bucket-name", "customers-folder/customers", "metadata-path/metadata_287934", logger);
+        Engagement engagement = new Engagement("{\r\n  \"EventTypeID\": 14,\r\n  \"TimeStamp\": \"2025-01-08 08:58\",\r\n  \"CampaignID\": 1111,\r\n  \"EngagementID\": 1111,\r\n  \"TenantID\": 1111,\r\n  \"BucketName\": \"bucketName\",\r\n  \"CustomersFolderPath\": \"path\",\r\n  \"MetadataFilePath\": \"pathCustomers\",\r\n  \"DecryptionKey\": \"some-secret-key\",\r\n  \"ChannelID\": 1111\r\n}", logger);
 
         Metadata metadata = engagement.getMetadata();
-        System.out.println(metadata.getNumberOfFiles());
+        System.out.println(metadata.getNumberOfBatches());
 
-        for (int fileNumber = 1; fileNumber <= metadata.getNumberOfFiles(); fileNumber++) {
+        for (int fileNumber = 1; fileNumber <= metadata.getNumberOfBatches(); fileNumber++) {
             System.out.println("file number: " + fileNumber);
 
             try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(fileNumber)) {

@@ -68,7 +68,7 @@ public class EngagementTest {
 
             // Verify the expected behavior
             assertNotNull(metadata);
-            assumeTrue(metadata.getNumberOfFiles() == 3);
+            assumeTrue(metadata.getNumberOfBatches() == 3);
             assumeTrue(metadata.getNumberOfCustomers() == 300);
             assumeTrue(metadata.getCampaignPlanID() == 10);
             assumeTrue(metadata.getCampaignID() == 1);

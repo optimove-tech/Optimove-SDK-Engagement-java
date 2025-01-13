@@ -12,14 +12,12 @@ import java.nio.charset.StandardCharsets;
 public class StorageSingleton {
 
     private static Storage instance = null;
-    private static final String projectId = "optimoveSDK";
 
     private StorageSingleton() { }
 
     public static Storage getInstance() {
         if(instance == null) {
             instance = StorageOptions.newBuilder()
-                    .setProjectId(projectId)
                     .build()
                     .getService();
         }
