@@ -17,17 +17,17 @@ public class Main {
     public static void main(String[] args) {
         Logger logger = LoggerFactory.getLogger(Main.class);
 
-        Engagement engagement = new Engagement("{\r\n  \"EventTypeID\": 14,\r\n  \"TimeStamp\": \"2025-01-08 08:58\",\r\n  \"CampaignID\": 8677,\r\n  \"EngagementID\": 9061,\r\n  \"TenantID\": 593,\r\n  \"BucketName\": \"optigration-external-eu\",\r\n  \"CustomersFolderPath\": \"593_2025-01-08 09 00_optigration demo_507_9061/customers\",\r\n  \"MetadataFilePath\": \"593_2025-01-08 09 00_optigration demo_507_9061/metadata_9061\",\r\n  \"DecryptionKey\": \"Sdy+upo5M2yFYOWYqk3cxBoZHq2vDNaXRZeqxUSITIU=\",\r\n  \"ChannelID\": 507\r\n}", logger);
+        Engagement engagement = new Engagement("{\r\n  \"EventTypeID\": 14,\r\n  \"TimeStamp\": \"2025-01-08 08:58\",\r\n  \"CampaignID\": 1111,\r\n  \"EngagementID\": 1111,\r\n  \"TenantID\": 1111,\r\n  \"BucketName\": \"bucketName\",\r\n  \"CustomersFolderPath\": \"path\",\r\n  \"MetadataFilePath\": \"pathCustomers\",\r\n  \"DecryptionKey\": \"some-secret-key\",\r\n  \"ChannelID\": 1111\r\n}", logger);
 
         Metadata metadata = engagement.getMetadata();
         System.out.println(metadata.getNumberOfBatches());
 
-        for (int fileNumber = 1; fileNumber <= metadata.getNumberOfBatches(); fileNumber++) {
-            System.out.println("file number: " + fileNumber);
+        for (int batchNumber = 1; batchNumber <= metadata.getNumberOfBatches(); batchNumber++) {
+            System.out.println("batch number: " + batchNumber);
 
             DataFileStream<GenericRecord> dataFileReader = null;
             try {
-                dataFileReader = engagement.getCustomerBatchById(fileNumber);
+                dataFileReader = engagement.getCustomerBatchById(batchNumber);
                 GenericRecord record = null;
                 while (dataFileReader.hasNext()) {
                     record = dataFileReader.next(record);

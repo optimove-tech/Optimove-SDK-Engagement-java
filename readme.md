@@ -46,10 +46,10 @@ public class Main {
         Metadata metadata = engagement.getMetadata();
         System.out.println(metadata.getNumberOfBatches());
 
-        for (int fileNumber = 1; fileNumber <= metadata.getNumberOfBatches(); fileNumber++) {
-            System.out.println("file number: " + fileNumber);
+        for (int batchNumber = 1; batchNumber <= metadata.getNumberOfBatches(); batchNumber++) {
+            System.out.println("batch number: " + batchNumber);
 
-            try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(fileNumber)) {
+            try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(batchNumber)) {
                 GenericRecord record = null;
                 while (dataFileReader.hasNext()) {
                     record = dataFileReader.next(record);
@@ -86,27 +86,27 @@ logger.error("Failed to retrieve metadata: " + e.getMessage(), e);
 }
 ```
 ### Customer Data Retrieval
-When retrieving customer data for an engagement, the SDK may encounter errors such as a missing or malformed customer data file, or an invalid file ID.
+When retrieving customer data for an engagement, the SDK may encounter errors such as a missing or malformed customer data file, or an invalid batch ID.
 
 In the case of a missing or malformed customer data file, the getCustomerBatchById() method will throw a RuntimeException with a message indicating the cause of the error. For example:
 
 
 ```java
-try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(fileNumber)) {
+try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(batchNumber)) {
 // use dataFileReader
 } catch (RuntimeException e) {
 logger.error("Failed to get customer batch by id: " + e.getMessage(), e);
 // handle error
 }
 ```
-If an invalid file ID is provided, the getCustomerBatchById() method will throw an IllegalArgumentException with a message indicating the cause of the error. For example:
+If an invalid batch ID is provided, the getCustomerBatchById() method will throw an IllegalArgumentException with a message indicating the cause of the error. For example:
 
 
 ```java
 try (DataFileStream<GenericRecord> dataFileReader = engagement.getCustomerBatchById(-1)) {
 // use dataFileReader
 } catch (IllegalArgumentException e) {
-logger.error("Invalid file id: " + e.getMessage(), e);
+logger.error("Invalid batch id: " + e.getMessage(), e);
 // handle error
 }
 ```
