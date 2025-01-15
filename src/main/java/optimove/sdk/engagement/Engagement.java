@@ -1,5 +1,6 @@
 package optimove.sdk.engagement;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.ReadChannel;
 
@@ -25,9 +26,56 @@ public class Engagement {
         this.logger = logger;
     }
 
+    // Constructor that accepts JSON string and logger
+    public Engagement(String jsonConfig, Logger logger) {
+        if (jsonConfig == null || logger == null) {
+            throw new IllegalArgumentException("Neither jsonConfig nor logger can be null");
+        }
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            EngagementConfig config = mapper.readValue(jsonConfig, EngagementConfig.class);
+            this.settings = createSettingsFromConfig(config);
+            this.logger = logger;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to parse engagement configuration: " + e.getMessage(), e);
+        }
+    }
+
+    // Constructor that accepts any object and logger
+    public Engagement(Object configObject, Logger logger) {
+        if (configObject == null || logger == null) {
+            throw new IllegalArgumentException("Neither configObject nor logger can be null");
+        }
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            // First convert the object to a JSON string
+            String jsonString = mapper.writeValueAsString(configObject);
+            // Then convert it to our EngagementConfig class
+            EngagementConfig config = mapper.readValue(jsonString, EngagementConfig.class);
+
+            this.settings = createSettingsFromConfig(config);
+            this.logger = logger;
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to convert object to engagement configuration: " + e.getMessage(), e);
+        }
+    }
+
+    // Helper method to create settings from config
+    private EngagementSettings createSettingsFromConfig(EngagementConfig config) {
+        return new EngagementSettings(
+                config.getDecryptionKey(),
+                config.getTenantID(),
+                config.getBucketName(),
+                config.getCustomersFolderPath(),
+                config.getMetadataFilePath()
+        );
+    }
+
     public Metadata getMetadata() {
         try {
-            Blob fileBlob = StorageSingleton.getBlob(this.settings.getBucketName(), this.settings.getMetadataFilePath());
+            Blob fileBlob = StorageSingleton.getBlob(this.settings.getBucketName(), this.settings.getMetadataFilePath(), this.settings.getDecryptionKey());
             String metadataString = StorageSingleton.blobToString(fileBlob, this.settings.getDecryptionKey());
 
             return MetadataService.jsonStringToMetadata(metadataString);

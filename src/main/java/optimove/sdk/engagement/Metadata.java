@@ -92,6 +92,10 @@ public class Metadata {
         return NumberOfFiles;
     }
 
+    public long getNumberOfBatches() {
+        return NumberOfFiles;
+    }
+
     public long getPlanDetailChannelID() {
         return PlanDetailChannelID;
     }
