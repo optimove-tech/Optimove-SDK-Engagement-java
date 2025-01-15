@@ -75,7 +75,7 @@ public class Engagement {
 
     public Metadata getMetadata() {
         try {
-            Blob fileBlob = StorageSingleton.getBlob(this.settings.getBucketName(), this.settings.getMetadataFilePath());
+            Blob fileBlob = StorageSingleton.getBlob(this.settings.getBucketName(), this.settings.getMetadataFilePath(), this.settings.getDecryptionKey());
             String metadataString = StorageSingleton.blobToString(fileBlob, this.settings.getDecryptionKey());
 
             return MetadataService.jsonStringToMetadata(metadataString);
