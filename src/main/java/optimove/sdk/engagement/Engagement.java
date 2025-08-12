@@ -66,8 +66,17 @@ public class Engagement {
             throw new IllegalArgumentException("srcFileName is null or empty");
         }
 
-        try (ReadChannel readChanel = StorageSingleton.getReadChanel(this.settings.getBucketName(), srcFileName, this.settings.getDecryptionKey());
-             InputStream targetStream = Channels.newInputStream(readChanel)) {
+        try {
+            // Do NOT wrap the ReadChannel and InputStream in try-with-resources here –
+            // doing so would close them immediately, making the returned DataFileStream unusable
+            // and causing a ClosedChannelException when the caller tries to read.
+
+            ReadChannel readChannel = StorageSingleton.getReadChanel(
+                    this.settings.getBucketName(),
+                    srcFileName,
+                    this.settings.getDecryptionKey());
+
+            InputStream targetStream = Channels.newInputStream(readChannel);
 
             DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
             return new DataFileStream<>(targetStream, datumReader);
