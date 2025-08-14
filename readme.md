@@ -1,4 +1,4 @@
-# Optimove Java SDK
+# Optimove Java SDK 
 
 This SDK provides a Java library for working with customer engagement data. The library includes classes for getting engagement data, as well as metadata about the engagement.
 
@@ -10,7 +10,7 @@ To use this SDK in your project, you'll need to add it as a dependency in your M
 <dependency>
     <groupId>io.github.maryan-opti</groupId>
     <artifactId>Optimove-SDK-Engagement-java</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 Then, you can import the necessary classes from the SDK into your Java code:
