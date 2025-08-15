@@ -1,4 +1,4 @@
-# Optimove Java SDK 
+# Optimove Java SDK  
 
 This SDK provides a Java library for working with customer engagement data. The library includes classes for getting engagement data, as well as metadata about the engagement.
 
