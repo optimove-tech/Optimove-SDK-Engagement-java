@@ -12,22 +12,22 @@ import java.nio.charset.StandardCharsets;
 public class StorageSingleton {
 
     private static Storage instance = null;
-    private static final String projectId = "optimoveSDK";
 
     private StorageSingleton() { }
 
     public static Storage getInstance() {
         if(instance == null) {
             instance = StorageOptions.newBuilder()
-                    .setProjectId(projectId)
                     .build()
                     .getService();
         }
         return instance;
     }
-
     public static Blob getBlob(String bucketName, String srcFileName) {
-        return getInstance().get(bucketName, srcFileName);
+        return getInstance().get(BlobId.of(bucketName, srcFileName));
+    }
+    public static Blob getBlob(String bucketName, String srcFileName, String decryptionKey) {
+        return getInstance().get(BlobId.of(bucketName, srcFileName), Storage.BlobGetOption.decryptionKey(decryptionKey));
     }
     public static ReadChannel getReadChanel(String bucketName, String srcFileName) {
         return getInstance().reader(BlobId.of(bucketName, srcFileName));

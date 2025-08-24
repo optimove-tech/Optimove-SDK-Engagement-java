@@ -57,7 +57,7 @@ public class EngagementTest {
 
         try (MockedStatic<StorageSingleton> classMock = mockStatic(StorageSingleton.class)) {
 
-            classMock.when(() -> StorageSingleton.getBlob(anyString(), anyString())).thenReturn(fileBlob);
+            classMock.when(() -> StorageSingleton.getBlob(anyString(), anyString(), anyString())).thenReturn(fileBlob);
             classMock.when(() -> StorageSingleton.blobToString(eq(fileBlob), any(String.class))).thenReturn(metadataString);
             classMock.when(() -> StorageSingleton.getReadChanel(anyString(), anyString(), anyString())).thenReturn(readChannel);
 
@@ -68,7 +68,7 @@ public class EngagementTest {
 
             // Verify the expected behavior
             assertNotNull(metadata);
-            assumeTrue(metadata.getNumberOfFiles() == 3);
+            assumeTrue(metadata.getNumberOfBatches() == 3);
             assumeTrue(metadata.getNumberOfCustomers() == 300);
             assumeTrue(metadata.getCampaignPlanID() == 10);
             assumeTrue(metadata.getCampaignID() == 1);
